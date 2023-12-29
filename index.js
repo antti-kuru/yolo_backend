@@ -52,14 +52,15 @@ const generateID = () => {
 
 app.post('/api/proposals', (req, res) => {
     const body = req.body
-
-    if (!body.name){
+    existingProposal = proposals.find(p => p.name === body.name)
+    if (!body){
         return res.status(400).json({
             error: 'name missing'
         })
-    } else if (proposals.find(p => p.name === body.name)){
-
-    }
+    } if (existingProposal) {
+        existingProposal.quantity += 1
+        res.json(existingProposal)
+    } else {
     const proposal = {
         name: body.name,
         quantity: 1,
@@ -67,7 +68,7 @@ app.post('/api/proposals', (req, res) => {
     }
     proposals = proposals.concat(proposal)
     res.json(proposal)
-
+    }
 })
 
 const PORT = 3002
