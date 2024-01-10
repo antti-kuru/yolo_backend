@@ -17,31 +17,26 @@ app.get('/api/proposals', (req, res) => {
     })
 })
 
-const generateID = () => {
-    const maxID = proposals.length > 0
-        ? Math.max(... proposals.map(p => p.id))
-        : 0
-        return maxID + 1
-}
-
 app.post('/api/proposals', (req, res) => {
     const body = req.body
-    existingProposal = proposals.find(p => p.name === body.name)
-    if (!body){
+    const existingProposal = Proposal.findOne({name: body.name})
+    if (body.content === undefined){
         return res.status(400).json({
             error: 'name missing'
         })
     } if (existingProposal) {
         existingProposal.quantity += 1
-        res.json(existingProposal)
+        existingProposal.save().then(savedProposal => {
+          res.json(savedProposal)
+        })
     } else {
-    const proposal = {
-        name: body.name,
-        quantity: 1,
-        id : generateID()
-    }
-    proposals = proposals.concat(proposal)
-    res.json(proposal)
+    const proposal = new Proposal({
+        name: body.content,
+        quantity: 1
+    })
+    proposal.save().then(savedProposal => {
+      res.json(savedProposal)
+    })
     }
 })
 
