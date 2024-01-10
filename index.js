@@ -10,42 +10,11 @@ app.use(express.static('dist'))
 
 
 
-
-let proposals = [
-      {
-        "name": "nachopelti",
-        "quantity": 4,
-        "id": 1
-      },
-      {
-        "name": "lasagne",
-        "quantity": 2,
-        "id": 2
-      },
-      {
-        "name": "kermaperunat",
-        "quantity": 1,
-        "id": 3
-      },
-      {
-        "name": "uunilohi",
-        "quantity": 2,
-        "id": 4
-      },
-      {
-        "name": "kebab",
-        "quantity": 1,
-        "id": 5
-      },
-      {
-        "name": "kasviswings",
-        "quantity": 1,
-        "id": 6
-      }
-    ]
-
 app.get('/api/proposals', (req, res) => {
-    res.json(proposals)
+  console.log('here')
+    Proposal.find({}).then(proposals => {
+      res.json(proposals)
+    })
 })
 
 const generateID = () => {
