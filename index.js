@@ -29,12 +29,11 @@ app.post('/api/proposals', async (req, res) => {
 
   try {
       // Find the existing proposal by name
-      const existingProposal = await Proposal.findOneAndUpdate({ name: body.name })
+      const existingProposal = await Proposal.findOne({ name: body.name })
 
       if (existingProposal) {
           // If proposal exists, update its quantity
           existingProposal.quantity += 1
-          console.log(existingProposal.quantity)
           const updatedProposal = await existingProposal.save()
           res.json(updatedProposal)
       } else {
