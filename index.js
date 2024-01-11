@@ -17,41 +17,38 @@ app.get('/api/proposals', (req, res) => {
     })
 })
 
-app.post('/api/proposals', async (req, res) => {
-  const body = req.body;
+app.post('/api/proposals', (req, res, next) => {
+  const body = req.body
 
-  // Check if the name is missing
-  if (body.name === undefined) {
-      return res.status(400).json({
-          error: 'Name missing'
-      })
+  if (!body.name) {
+    return res.status(400).json({
+        error: 'Name missing'
+    })
+  }
+  const proposal = new Proposal({
+    name: body.name,
+    quantity: 1
+  })
+
+  proposal.save().then(savedProposal => {
+    res.json(savedProposal)
+  })
+    .catch(error => next(error))
+})
+
+app.put('/api/proposals/:id', (req, res, next) => {
+  const body = req.body
+
+  const proposal = {
+    name: body.name,
+    quantity: body.quantity + 1
   }
 
-  try {
-      // Find the existing proposal by name
-      const existingProposal = await Proposal.findOne({ name: body.name })
-
-      if (existingProposal) {
-          // If proposal exists, update its quantity
-          existingProposal.quantity += 1
-          const updatedProposal = await existingProposal.save()
-          res.json(updatedProposal)
-      } else {
-          // If proposal doesn't exist, create a new one
-          const proposal = new Proposal({
-              name: body.name,
-              quantity: 1
-          })
-
-          const savedProposal = await proposal.save()
-          res.json(savedProposal)
-      }
-  } catch (error) {
-      console.error('Error processing proposal:', error)
-      res.status(500).json({
-          error: 'Internal Server Error'
-      })
-  }
+  Proposal.findByIdAndUpdate(req.params.id, proposal, {new:true})
+    .then(updatedProposal => {
+      res.json(updatedProposal)
+    })
+    .catch(error => next(error))
 })
 
 
