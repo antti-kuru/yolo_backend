@@ -41,7 +41,7 @@ app.put('/api/proposals/:id', (req, res, next) => {
 
   const proposal = {
     name: body.name,
-    quantity: body.quantity + 1
+    quantity: body.quantity
   }
 
   Proposal.findByIdAndUpdate(req.params.id, proposal, {new:true})
