@@ -1,3 +1,9 @@
+
+
+
+https://github.com/antti-kuru/yolo_backend/assets/128390200/a32ea04d-ff14-441e-810f-6f0bf6ccf716
+
+
 This is the backend of my full-stack Yolo project (https://github.com/antti-kuru/Yolo). This project enables customers to give feedback and suggest foods they would like to eat on the restauraunt. 
 
 Feedback can be given in three buttons, good/neutral/bad and when feedback is given a table shows the responses. 
