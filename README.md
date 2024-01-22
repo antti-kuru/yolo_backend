@@ -1,7 +1,12 @@
 
 
 
-https://github.com/antti-kuru/yolo_backend/assets/128390200/a32ea04d-ff14-441e-810f-6f0bf6ccf716
+
+
+https://github.com/antti-kuru/yolo_backend/assets/128390200/75413184-9caa-4293-8cfb-ab52aed66195
+
+Sorry for the multiple second delay at the start of the video, I have no clue why it happens
+
 
 
 This is the backend of my full-stack Yolo project (https://github.com/antti-kuru/Yolo). This project enables customers to give feedback and suggest foods they would like to eat on the restauraunt. 
